@@ -7,6 +7,7 @@ except ImportError:
 
 
 def open_file(fname):
+    "function to open file"
     return open(os.path.join(os.path.dirname(__file__), fname))
 
 
@@ -18,7 +19,7 @@ setup(
     description="Convert number words eg. three hundred and forty two to numbers (342) for indian currency standards.",
     author="Darshan Patel",
     author_email="darshan.patel@go-yubi.com",
-    url="https://github.com/credavenue/ca-ds-nlp-Indian-word2number",  # use the URL to the github repo
+    url="https://github.com/Yubi2Community/word2num",
     keywords=[
         "numbers",
         "convert",
@@ -27,7 +28,8 @@ setup(
         "currency",
     ],  # arbitrary keywords
     classifiers=["Intended Audience :: Developers", "Programming Language :: Python"],
-    long_description=open_file("README.rst").read(),
+    long_description=open_file("README.md").read(),
+    long_description_content_type="text/markdown",
     install_requires=[
         "nltk",
     ],

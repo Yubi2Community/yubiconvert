@@ -1,4 +1,4 @@
-# ca-ds-nlp-Indian-word2number
+# Word2Num
 
 This is a Python module to convert number words (eg. twenty one) to numeric digits (21) modified to support indian currency standards as well as Western stadards.
 It can also replace numbers written in between the sentence while keeping rest of the stuff as it is.
@@ -8,7 +8,7 @@ It can also replace numbers written in between the sentence while keeping rest o
 Please ensure that you have **updated pip** to the latest version before installing indian_word2number.
 
 You can install the module using Python Package Index using the below command.
-```
+```python
 pip install indian-word2number
 
 ```
@@ -17,30 +17,32 @@ pip install indian-word2number
 
 First you have to import the module using the below code.
 
-    from indian_word2number import indian_w2n as w2n
+```python
+from indian_word2number import indian_w2n as w2n
+```
 
 Then you can use the **word_to_num** method to convert a number-word to numeric digits, as shown below.
-```
+```python
 print(w2n.word_to_num("twenty lakh three thousand nineteen Rupees"))
 2003019
 ```
-```
+```python
 print(w2n.word_to_num('two point three')) 
 2.3
 ```
-```
+```python
 print(w2n.word_to_num('112')) 
 112
 ```
-```
+```python
 print(w2n.word_to_num('point one')) 
 0.1
 ```
-```
+```python
 print(w2n.word_to_num('one hundred thirty-five')) 
 135
 ```
-```
+```python
 print(w2n.word_to_num("there was a group of ten friends who went to the restaurant for a party, ordered thirty two dishes including ten drinks and bill came out as ten thousand five hundred and thirty paisa")) 
 there was a group of 10 friends who went to the restaurant for a party, ordered 32 dishes including 10 drinks and bill came out as 10500.3
 ```

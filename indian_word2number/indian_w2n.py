@@ -91,17 +91,14 @@ word_to_number = {**num_names, **place_names, **dec_names, **neg_names}
 number_to_word = {str(j): i for i, j in word_to_number.items()}
 
 
-def num_generator(phrase):
-    """Generator to return numeric value for a given string
+def clean_input_phrase(phrase):
+    """Function to clean input string
 
     Args:
         phrase (str): input string
 
-    Raises:
-        ValueError
-
-    Yields:
-        int: numeric value of input string
+    Returns:
+        List: List of cleaned words
     """
     # remove dirty characters - commonly put in numbers but not "part of" the number
     cleanphrase = "".join(char for char in phrase if char not in ignore_chars)
@@ -127,7 +124,19 @@ def num_generator(phrase):
                 words.append(word[i + 1 :])
         else:
             words.append(word)
+    return words
 
+
+def num_generator(phrase):
+    """Generator to return numeric value for a given string
+    Args:
+        phrase (str): input string
+    Raises:
+        ValueError
+    Yields:
+        int: numeric value of input string
+    """
+    words = clean_input_phrase(phrase)
     if len(words) == 0:
         raise ValueError("No valid words provided")
 
@@ -163,6 +172,41 @@ def num_generator(phrase):
                     raise ValueError(jls_extract_var.format(word)) from exc
 
 
+def handle_paisa_amount(phrase):
+    """Function to handle fraction amount written as paisa or cents
+
+    Args:
+        phrase (str): input word
+
+    Returns:
+        str: modified phrase
+        int: numeric value of paisa/cent amount
+    """
+    paisa_number = 0
+    ## Handling paisa values in indian currency standards similar to cents in US
+    if " and" in phrase and "paisa" in phrase:
+        and_index = phrase.find(" and")
+        paisa_index = phrase.find("paisa")
+        sub_phrase = phrase[and_index + len(" and") : paisa_index]
+        phrase = phrase[:and_index]
+        paisa_number += _word_to_num(sub_phrase)
+
+    elif " rupee" in phrase and "paisa" in phrase:
+        and_index = phrase.find(" rupee")
+        paisa_index = phrase.find("paisa")
+        sub_phrase = phrase[and_index + len(" rupee") : paisa_index]
+        phrase = phrase[:and_index]
+        paisa_number += _word_to_num(sub_phrase)
+
+    elif " and" in phrase and "cent" in phrase:
+        and_index = phrase.find(" and")
+        paisa_index = phrase.find("cent")
+        sub_phrase = phrase[and_index + len(" and") : paisa_index]
+        phrase = phrase[:and_index]
+        paisa_number += _word_to_num(sub_phrase)
+    return phrase, paisa_number
+
+
 def _word_to_num(phrase):
     """function to convert string to it's numeric value
 
@@ -190,28 +234,7 @@ def _word_to_num(phrase):
             count_us_standards += 1
     if all([count_indian_standards > 0, count_us_standards > 0]):
         raise ValueError("Input has multiple currency standards")
-    paisa_number = 0
-    ## Handling paisa values in indian currency standards similar to cents in US
-    if " and" in phrase and "paisa" in phrase:
-        and_index = phrase.find(" and")
-        paisa_index = phrase.find("paisa")
-        sub_phrase = phrase[and_index + len(" and") : paisa_index]
-        phrase = phrase[:and_index]
-        paisa_number += _word_to_num(sub_phrase)
-
-    elif " rupee" in phrase and "paisa" in phrase:
-        and_index = phrase.find(" rupee")
-        paisa_index = phrase.find("paisa")
-        sub_phrase = phrase[and_index + len(" rupee") : paisa_index]
-        phrase = phrase[:and_index]
-        paisa_number += _word_to_num(sub_phrase)
-
-    elif " and" in phrase and "cent" in phrase:
-        and_index = phrase.find(" and")
-        paisa_index = phrase.find("cent")
-        sub_phrase = phrase[and_index + len(" and") : paisa_index]
-        phrase = phrase[:and_index]
-        paisa_number += _word_to_num(sub_phrase)
+    phrase, paisa_number = handle_paisa_amount(phrase)
     running_total = [0]
     post_decimal_count = 0
     sign = 1
@@ -268,7 +291,19 @@ def _word_to_num(phrase):
     return final_value + paisa_number / 100 if paisa_number else final_value
 
 
-def word_to_num(text):
+def word_to_num(text: str):
+    """Main Function to convert text to numerical value
+
+    Args:
+        text (str): input text
+
+    Raises:
+        ValueError: If input is not a String
+        exp: If any exception occurs while conversion
+
+    Returns:
+        Union[float, int, str]: Numerical value based on the input text
+    """
     if not isinstance(text, str):
         raise ValueError("Only String format is supported")
     text = " ".join([number_to_word.get(i, i) for i in text.lower().strip().split(" ")])
@@ -304,13 +339,3 @@ def word_to_num(text):
         except Exception as exp:
             raise exp
     return text
-
-
-# print(
-#     word_to_num(
-#         """nine hundred ninety nine decillion nine hundred ninety nine nonillion nine hundred ninety nine octillion nine hundred ninety nine septillion nine hundred ninety nine sextillion nine hundred ninety nine quintillion nine hundred ninety nine quadrillion nine hundred ninety nine trillion nine hundred ninety nine billion nine hundred ninety nine million nine hundred ninety nine thousand nine hundred ninety nine"""
-#     )
-# )
-##TODO
-# f = re.findall("(\d+)\s(\d+)", "325 110115")[0]
-# f[0] + f[1][1:]
