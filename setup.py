@@ -12,14 +12,14 @@ def open_file(fname):
 
 
 setup(
-    name="indian_word2number",
-    packages=["indian_word2number"],  # this must be the same as the name above
-    version="1.2",
+    name="yubiconvert",
+    packages=["yubiconvert"],  # this must be the same as the name above
+    version="1.0",
     license="MIT",
-    description="Convert number words eg. three hundred and forty two to numbers (342) for indian currency standards.",
+    description="Python module that can convert numeric words to their numerical form effortlessly",
     author="Darshan Patel",
     author_email="darshan.patel@go-yubi.com",
-    url="https://github.com/Yubi2Community/word2num",
+    url="https://github.com/Yubi2Community/yubiconvert",
     keywords=[
         "numbers",
         "convert",

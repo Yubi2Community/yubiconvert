@@ -1,4 +1,4 @@
-"""Word2Number Library that supports indian currency standards
+"""YubiConvert Library that supports indian currency standards as well as Western
 """
 
 import re
