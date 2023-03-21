@@ -1,0 +1,11 @@
+.idea/
+.codeintel/
+.idlerc/
+.pypirc
+*.pyc
+__pycache__/
+__pycache__/*
+dist/
+dist/*
+.DS_Store
+*.egg-info
