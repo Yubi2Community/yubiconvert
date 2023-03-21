@@ -1,24 +1,22 @@
-# Word2Num
+# YubiConvert
 
-This is a Python module to convert number words (eg. twenty one) to numeric digits (21) modified to support indian currency standards as well as Western stadards.
-It can also replace numbers written in between the sentence while keeping rest of the stuff as it is.
+YubiConvert - a Python module that can convert numeric words to their numerical form effortlessly. What's more, it supports both Western and Indian currency standards, making it the ultimate solution for all your numerical conversion needs.
 
 ## Installation
 
-Please ensure that you have **updated pip** to the latest version before installing indian_word2number.
+To install the YubiConvert module, it is recommended to first ensure that you have updated the pip to the latest version. Then, you can use pip to install the module from the Python Package Index with the following command:
 
-You can install the module using Python Package Index using the below command.
 ```python
-pip install indian-word2number
+pip install yubiconvert
 
 ```
 
 ## Usage
 
-First you have to import the module using the below code.
+Once the module is installed, you can import it into your Python code using the following line:
 
 ```python
-from indian_word2number import indian_w2n as w2n
+from yubiconvert import yubiconvert as w2n
 ```
 
 Then you can use the **word_to_num** method to convert a number-word to numeric digits, as shown below.

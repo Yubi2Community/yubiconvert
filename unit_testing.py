@@ -2,7 +2,7 @@
 """
 import unittest
 
-from indian_word2number import indian_w2n as w2n
+from yubiconvert import yubiconvert as w2n
 
 
 class TestW2N(unittest.TestCase):
