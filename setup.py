@@ -17,8 +17,8 @@ setup(
     version="1.0",
     license="MIT",
     description="Python module that can convert numeric words to their numerical form effortlessly",
-    author="Darshan Patel",
-    author_email="darshan.patel@go-yubi.com",
+    author="Yubi Data Science Team",
+    author_email="data@go-yubi.com",
     url="https://github.com/Yubi2Community/yubiconvert",
     keywords=[
         "numbers",
