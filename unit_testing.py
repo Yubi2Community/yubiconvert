@@ -24,7 +24,7 @@ class TestW2N(unittest.TestCase):
             w2n.word_to_num(
                 " twenty lakh three thousand nineteen Rupees and zero paisa only"
             ),
-            str(2003019) + " only",
+            str(2003019),
         )
         self.assertEqual(w2n.word_to_num("three crore"), str(30000000))
         self.assertEqual(w2n.word_to_num("three lac"), str(300000))
@@ -56,6 +56,9 @@ class TestW2N(unittest.TestCase):
         self.assertEqual(w2n.word_to_num("lakh"), str(100000))
         self.assertEqual(w2n.word_to_num("crore"), str(10000000))
         self.assertEqual(w2n.word_to_num("nine point nine nine nine"), str(9.999))
+        self.assertEqual(w2n.word_to_num("seven lakhs sixty five thousand thirty"), str(765030))
+        self.assertEqual(w2n.word_to_num("six thousand two rupees and thirty paise only"), str(6002.30))
+        self.assertEqual(w2n.word_to_num("six thousand two rupees and thirty paisa only"), str(6002.3))
         self.assertEqual(w2n.word_to_num("one lakh crore"), str(1000000000000))
         self.assertEqual(
             w2n.word_to_num(
