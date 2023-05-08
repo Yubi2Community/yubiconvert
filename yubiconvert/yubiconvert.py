@@ -48,11 +48,13 @@ common_place_names = {
     "dozen": 12,
     "score": 20,
     "hundred": 100,
+    "hundreds": 100,
     "gross": 144,
     "thousand": 1_000,
+    "thousands": 1_000
 }
 
-indian_place_names = {"lakh": 1_00_000, "lac": 1_00_000, "crore": 1_00_00_000}
+indian_place_names = {"lakh": 1_00_000,"lakhs": 1_00_000 ,"lac": 1_00_000, "crore": 1_00_00_000, "crores": 1_00_00_000}
 us_place_names = {
     "million": 1_000_000,
     "billion": 1_000_000_000,
@@ -224,7 +226,7 @@ def _word_to_num(phrase):
             "Type of input is not string! Please enter a valid number word (eg. 'two million twenty three thousand and forty nine')"
         )
     phrase = phrase.lower()
-    phrase = phrase.replace("rupees", "rupee")
+    phrase = phrase.replace("rupees", "rupee").replace('paise','paisa').replace('only','')
     count_indian_standards = 0
     count_us_standards = 0
     for i in phrase.split():
@@ -311,7 +313,7 @@ def word_to_num(text: str):
         text = text.replace("-", " ")
     tagged_number_words = " ".join([f"{i}/CD" for i in word_to_number])
     tagged_number_words += (
-        " a/CD and/CD &/CD rs/CD rupee/CD rupees/CD paisa/CD cent/CD cents/CD"
+        " a/CD and/CD &/CD rs/CD rupee/CD rupees/CD paisa/CD cent/CD cents/CD paise/CD only/CD"
     )
     tagged_number_words_tuples = [
         nltk.tag.str2tuple(t) for t in tagged_number_words.split()
